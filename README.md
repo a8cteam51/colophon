@@ -25,12 +25,27 @@ Parameters can be passed in --
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
 
-<!-- Coming soon!
-
 FSE Themes
 ==========
 
 If your site using Full Site Editing, then insert a shortcode
-block into the footer and use `[team51_colophon /]` as an embed.
+block into the footer.html and use `[team51_colophon /]` as an embed.
 
--->
+Something like this:
+
+```html
+<!-- wp:shortcode -->
+[team51-credits /]
+<!-- /wp:shortcode -->
+```
+
+or
+
+```html
+<!-- wp:shortcode -->
+[team51-credits separator=" | " /]
+<!-- /wp:shortcode -->
+```
+
+or the like.  It will also accept `wpcom` and `pressable` parameters
+as well to specify their respective link texts.

@@ -90,4 +90,25 @@ function team51_credits( $args = array() ) {
 }
 add_action( 'team51_credits', 'team51_credits', 10, 1 );
 
-// add register_shortcode
+/**
+ * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
+ * 
+ * Can also be used in the Shortcode block.
+ */
+function team51_credits_shortcode( $atts ) {
+	$pairs = array(
+		'separator'      => ' ',
+		/* translators: %s: WordPress. */
+		'wpcom'          => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+		/* translators: %s: Pressable. */
+		'pressable'      => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+	);
+	$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+	ob_start();
+	team51_credits( $atts );
+	return ob_get_clean();
+}
+add_action( 'init', function() {
+	add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
+} );
+
