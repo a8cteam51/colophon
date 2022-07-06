@@ -7,7 +7,7 @@
  *
  * @param array $args {
  *     Optional. An array of arguments.
- *     
+ *
  *     @type string $separator The separator to inject between links.
  *                             Default ' '
  *     @type string $wpcom     The link text to use for WordPress.com.
@@ -20,11 +20,11 @@ function team51_credits( $args = array() ) {
 	$args = wp_parse_args(
 		$args,
 		array(
-			'separator'      => ' ',
+			'separator' => ' ',
 			/* translators: %s: WordPress. */
-			'wpcom'          => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+			'wpcom'     => sprintf( __( '%s.', 'team51' ), 'WordPress' ),
 			/* translators: %s: Pressable. */
-			'pressable'      => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+			'pressable' => sprintf( __( '%s.', 'team51' ), 'Pressable' ),
 		)
 	);
 
@@ -32,7 +32,7 @@ function team51_credits( $args = array() ) {
 
 	if ( $args['wpcom'] ) {
 		$partner_domain = wp_parse_url( get_site_url(), PHP_URL_HOST );
-		$wpcom_link = apply_filters(
+		$wpcom_link     = apply_filters(
 			'team51_credits_link_wpcom',
 			add_query_arg(
 				array(
@@ -45,8 +45,9 @@ function team51_credits( $args = array() ) {
 				'https://wordpress.com/wp/'
 			)
 		);
+
 		$credit_links['wpcom'] = sprintf(
-			'<a href="%1$s" class="imprint">%2$s</a>',
+			'Proudly powered by <a href="%1$s" class="imprint">%2$s</a>',
 			esc_url( $wpcom_link ),
 			esc_html( $args['wpcom'] )
 		);
@@ -65,8 +66,9 @@ function team51_credits( $args = array() ) {
 				'https://pressable.com/'
 			)
 		);
+
 		$credit_links['pressable'] = sprintf(
-			'<a href="%1$s" class="imprint">%2$s</a>',
+			'Hosted by <a href="%1$s" class="imprint">%2$s</a>',
 			esc_url( $pressable_link ),
 			esc_html( $args['pressable'] )
 		);
@@ -83,32 +85,37 @@ function team51_credits( $args = array() ) {
 	 */
 	$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-	echo implode(
-		esc_html( $args['separator'] ),
-		$credit_links
+	echo wp_kses_post(
+		implode(
+			esc_html( $args['separator'] ),
+			$credit_links
+		)
 	);
 }
 add_action( 'team51_credits', 'team51_credits', 10, 1 );
 
 /**
  * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
- * 
+ *
  * Can also be used in the Shortcode block.
  */
 function team51_credits_shortcode( $atts ) {
 	$pairs = array(
-		'separator'      => ' ',
+		'separator' => ' ',
 		/* translators: %s: WordPress. */
-		'wpcom'          => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+		'wpcom'     => sprintf( __( '%s.', 'team51' ), 'WordPress' ),
 		/* translators: %s: Pressable. */
-		'pressable'      => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+		'pressable' => sprintf( __( '%s.', 'team51' ), 'Pressable' ),
 	);
+
 	$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
 	ob_start();
 	team51_credits( $atts );
 	return ob_get_clean();
 }
-add_action( 'init', function() {
-	add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
-} );
-
+add_action(
+	'init',
+	function() {
+		add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
+	}
+);
