@@ -7,7 +7,7 @@
  *
  * @param array $args {
  *     Optional. An array of arguments.
- *     
+ *
  *     @type string $separator The separator to inject between links.
  *                             Default ' '
  *     @type string $wpcom     The link text to use for WordPress.com.
@@ -46,7 +46,7 @@ function team51_credits( $args = array() ) {
 			)
 		);
 		$credit_links['wpcom'] = sprintf(
-			'<a href="%1$s" class="imprint">%2$s</a>',
+			'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
 			esc_url( $wpcom_link ),
 			esc_html( $args['wpcom'] )
 		);
@@ -66,7 +66,7 @@ function team51_credits( $args = array() ) {
 			)
 		);
 		$credit_links['pressable'] = sprintf(
-			'<a href="%1$s" class="imprint">%2$s</a>',
+			'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
 			esc_url( $pressable_link ),
 			esc_html( $args['pressable'] )
 		);
@@ -92,7 +92,7 @@ add_action( 'team51_credits', 'team51_credits', 10, 1 );
 
 /**
  * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
- * 
+ *
  * Can also be used in the Shortcode block.
  */
 function team51_credits_shortcode( $atts ) {
@@ -111,4 +111,3 @@ function team51_credits_shortcode( $atts ) {
 add_action( 'init', function() {
 	add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 } );
-
