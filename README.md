@@ -29,7 +29,7 @@ FSE Themes
 ==========
 
 If your site using Full Site Editing, then insert a shortcode
-block into the footer.html and use `[team51_colophon /]` as an embed.
+block into the footer.html and use `[team51-credits /]` as an embed.
 
 Something like this:
 
