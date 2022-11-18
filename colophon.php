@@ -1,4 +1,13 @@
 <?php
+/*
+Plugin Name: Colophon
+Plugin URI: https://github.com/a8cteam51/colophon
+Description: Sets Team 51 footer links to WordPress.com and Pressable.
+Version: 1.0.0
+Author: WordPress.com Special Projects
+Author URI: https://wpspecialprojects.wordpress.com/
+License: GPLv3
+*/
 
 /**
  * A colophon-generating method for WordPress Special Projects Sites.
@@ -20,19 +29,19 @@ function team51_credits( $args = array() ) {
 	$args = wp_parse_args(
 		$args,
 		array(
-			'separator'      => ' ',
+			'separator' => ' ',
 			/* translators: %s: WordPress. */
-			'wpcom'          => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+			'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 			/* translators: %s: Pressable. */
-			'pressable'      => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 		)
 	);
 
 	$credit_links = array();
 
 	if ( $args['wpcom'] ) {
-		$partner_domain = wp_parse_url( get_site_url(), PHP_URL_HOST );
-		$wpcom_link = apply_filters(
+		$partner_domain        = wp_parse_url( get_site_url(), PHP_URL_HOST );
+		$wpcom_link            = apply_filters(
 			'team51_credits_link_wpcom',
 			add_query_arg(
 				array(
@@ -53,7 +62,7 @@ function team51_credits( $args = array() ) {
 	}
 
 	if ( $args['pressable'] ) {
-		$pressable_link = apply_filters(
+		$pressable_link            = apply_filters(
 			'team51_credits_link_pressable',
 			add_query_arg(
 				array(
@@ -97,17 +106,20 @@ add_action( 'team51_credits', 'team51_credits', 10, 1 );
  */
 function team51_credits_shortcode( $atts ) {
 	$pairs = array(
-		'separator'      => ' ',
+		'separator' => ' ',
 		/* translators: %s: WordPress. */
-		'wpcom'          => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+		'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 		/* translators: %s: Pressable. */
-		'pressable'      => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+		'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 	);
-	$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+	$atts  = shortcode_atts( $pairs, $atts, 'team51-credits' );
 	ob_start();
 	team51_credits( $atts );
 	return ob_get_clean();
 }
-add_action( 'init', function() {
-	add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
-} );
+add_action(
+	'init',
+	function() {
+		add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
+	}
+);
