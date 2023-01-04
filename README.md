@@ -4,12 +4,6 @@ Colophon
 Having set up footer links in many partner sites, this aims to
 simplify the deployment of each, by using a more consistent api.
 
-WPCOM
-=====
-
-<em>Only on WPCOM sites</em><br>
-Removes the WPCOM ```better_wpcom_link_init``` action that modifies the credit links, so we can use our own.
-
 Usage
 =====
 
