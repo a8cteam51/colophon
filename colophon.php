@@ -123,13 +123,3 @@ add_action(
 		add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 	}
 );
-
-/**
- * Remove WPCOM action for modifying credit links. So, we can add our own. [Only on WPCOM sites]
- */
-function team51_remove_better_wpcom_links() {
-	remove_action( 'get_footer', 'better_wpcom_link_init' );
-}
-
-add_action( 'wp_footer', 'team51_remove_better_wpcom_links' );
-
