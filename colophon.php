@@ -69,7 +69,7 @@ function team51_credits( $args = array() ) {
 					'utm_source'   => 'Automattic',
 					'utm_medium'   => 'rpc',
 					'utm_campaign' => 'Concierge Referral',
-					'utm_term'     => 'concierge',
+					'utm_term'     => $partner_domain,
 				),
 				'https://pressable.com/'
 			)
