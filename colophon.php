@@ -37,11 +37,11 @@ function team51_credits( $args = array() ) {
 		)
 	);
 
-	$credit_links = array();
+	$credit_links   = array();
+	$partner_domain = wp_parse_url( get_site_url(), PHP_URL_HOST );
 
 	if ( $args['wpcom'] ) {
-		$partner_domain        = wp_parse_url( get_site_url(), PHP_URL_HOST );
-		$wpcom_link            = apply_filters(
+		$wpcom_link = apply_filters(
 			'team51_credits_link_wpcom',
 			add_query_arg(
 				array(
@@ -62,7 +62,7 @@ function team51_credits( $args = array() ) {
 	}
 
 	if ( $args['pressable'] ) {
-		$pressable_link            = apply_filters(
+		$pressable_link = apply_filters(
 			'team51_credits_link_pressable',
 			add_query_arg(
 				array(
