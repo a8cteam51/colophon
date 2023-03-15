@@ -72,6 +72,10 @@ or
 or the like.  It will also accept `wpcom` and `pressable` parameters
 as well to specify their respective link texts.
 
+
+
+### Examples
+
 To remove Pressable link for WordPress.com sites, you can use
 
 ```html
@@ -79,6 +83,16 @@ To remove Pressable link for WordPress.com sites, you can use
 [team51-credits pressable="" /]
 <!-- /wp:shortcode -->
 ```
+
+Change WordPress link text to be “Proudly designed with WordPress”:
+
+```html
+<!-- wp:shortcode -->
+[team51-credits wpcom="Proudly designed with WordPress" /]
+<!-- /wp:shortcode -->
+```
+
+
 
 Installation
 ============
