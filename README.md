@@ -88,7 +88,7 @@ Change WordPress link text to be “Proudly designed with WordPress”:
 
 ```html
 <!-- wp:shortcode -->
-[team51-credits wpcom="Proudly designed with WordPress" /]
+[team51-credits pressable="" wpcom="Proudly designed with WordPress" /]
 <!-- /wp:shortcode -->
 ```
 
