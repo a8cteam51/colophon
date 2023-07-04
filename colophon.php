@@ -92,9 +92,12 @@ function team51_credits( $args = array() ) {
 	 */
 	$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-	echo implode(
-		esc_html( $args['separator'] ),
-		$credit_links
+	printf(
+		'<p class="colophon__wrapper">%s</p>',
+		implode(
+			esc_html( $args['separator'] ),
+			$credit_links
+		)
 	);
 }
 add_action( 'team51_credits', 'team51_credits', 10, 1 );
