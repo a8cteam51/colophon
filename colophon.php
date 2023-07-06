@@ -9,6 +9,8 @@ Author URI: https://wpspecialprojects.wordpress.com/
 License: GPLv3
 */
 
+if ( ! function_exists( 'team51_credits' ) ) :
+
 /**
  * A colophon-generating method for WordPress Special Projects Sites.
  *
@@ -99,6 +101,10 @@ function team51_credits( $args = array() ) {
 }
 add_action( 'team51_credits', 'team51_credits', 10, 1 );
 
+endif;
+
+if ( ! function_exists( 'team51_credits_shortcode' ) ) :
+
 /**
  * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
  *
@@ -123,3 +129,5 @@ add_action(
 		add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 	}
 );
+
+endif;
