@@ -55,29 +55,31 @@ An additional filter has been added which is used to modify the final output of 
  * Wraps the colophon in a div with a class of `colophon`.
  * 
  * @param $output (string) The output of the colophon.
+ * @param $links (string) The unwrapped links string.
  * @param $args (array) The arguments passed to the colophon.
  * @return (string) The output of the colophon, wrapped in a div.
  */
-function PREFIX_team51_wrap_colophon( $output, $args ) {
+function PREFIX_team51_wrap_colophon( $output, $links, $args ) {
   return '<div class="colophon">' . $output . '</div>';
 }
-add_filter( 'team51_credits_render', 'PREFIX_team51_wrap_colophon', 10, 2 );
+add_filter( 'team51_credits_render', 'PREFIX_team51_wrap_colophon', 10, 3 );
 ```
 
-Can also be used to replace the `<span>` with a paragraph:
+You can also choose to wrap the links in any tags desired:
 
 ```php
 /**
- * Replaces the span with a paragraph.
+ * Wraps the colophon in a div with a class of `colophon`.
  * 
  * @param $output (string) The output of the colophon.
+ * @param $links (string) The unwrapped links string.
  * @param $args (array) The arguments passed to the colophon.
  * @return (string) The output of the colophon, wrapped in a div.
  */
-function PREFIX_team51_colophon_as_paragraph( $output, $args ) {
-  return str_replace( 'span', 'p', $output );
+function PREFIX_team51_colophon_as_paragraph( $output, $links, $args ) {
+  return '<div class="some-class"><p id="colophon-wrapper">' . $links . '</p></div>';
 }
-add_filter( 'team51_credits_render', 'PREFIX_team51_colophon_as_paragraph', 10, 2 );
+add_filter( 'team51_credits_render', 'PREFIX_team51_colophon_as_paragraph', 10, 3 );
 ```
 
 FSE Themes
@@ -125,6 +127,13 @@ Change WordPress link text to be “Proudly designed with WordPress”:
 <!-- /wp:shortcode -->
 ```
 
+With a wrapper (span with class of `colophon__wrapper`):
+
+```html
+<!-- wp:shortcode -->
+[team51-credits wrapper="colophon__wrapper" /]
+<!-- /wp:shortcode -->
+```
 
 
 Installation

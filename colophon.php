@@ -25,6 +25,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *                             Default 'Proudly powered by WordPress.'
 	 *     @type string $pressable The link text to use for Pressable.
 	 *                             Default 'Hosted by Pressable.'
+	 *     @type string $wrapper   The wrapper class to use for the output.
 	 * }
 	 */
 	function team51_credits( $args = array() ) {
@@ -94,24 +95,30 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-		$string = implode( esc_html( $args['separator'] ), $credit_links );
+		$links = implode( esc_html( $args['separator'] ), $credit_links );
 
 		// If we have an args['wrapper'] set, wrap the output in that.
-		$has_wrapper = array_key_exists( 'wrapper', $args );
-		if ( $has_wrapper ) {
-			// Set the class, based on the passed wrapper.
-			$wrapper_class = '' !== $args['wrapper'] ? esc_attr( $args['wrapper'] ) : 'colophon__wrapper';
-			$string        = sprintf( '<span class="%1$s">%2$s</span>', $wrapper_class, $string );
+		if ( array_key_exists( 'wrapper', $args ) ) {
+			// If there is no class defined, use an empty span.
+			$wrapped_template = '' !== $args['wrapper']
+				? '<span class="%1$s">%2$s</span>'
+				: '<span>%2$s</span>';
+
+			$string = sprintf( $wrapped_template, esc_attr( $args['wrapper'] ), $links );
+		} else {
+			// Otherwise, just return the links.
+			$string = $links;
 		}
 
 		/**
 		 * Filters the output string.
 		 *
 		 * @param string $string The output string.
+		 * @param string $links  The unwrapped links string.
 		 * @param array  $args   The parsed arguments used by `team51_credits()`.
 		 * @return string The filtered output string.
 		 */
-		$string = apply_filters( 'team51_credits_render', $string, $args );
+		$string = apply_filters( 'team51_credits_render', $string, $links, $args );
 
 		echo $string;
 	}
