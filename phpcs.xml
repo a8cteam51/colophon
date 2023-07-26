@@ -11,8 +11,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="build-processes-demo-features" /> <!-- Change this value to your
-				plugin slug. -->
+				<element value="team51" />
 			</property>
 		</properties>
 	</rule>
@@ -21,9 +20,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="build_processes_demo_features" /> <!-- Change this value to your
-				plugin prefix. -->
-				<element value="bpd_features" /> <!-- Change this value to your plugin prefix. -->
+				<element value="team51" />
 			</property>
 		</properties>
 	</rule>
