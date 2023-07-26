@@ -49,14 +49,6 @@
         ],
         "lint:php:features": "phpcs --standard=phpcs.xml . -v",
 
-        "internationalize": [
-            "@makepot:features",
-            "@updatepo:features"
-        ],
-        "makepot:features": "wp i18n make-pot mu-plugins/build-processes-demo-features",
-        "updatepo:features": "wp i18n update-po mu-plugins/build-processes-demo-features/languages/build-processes-demo-features.pot",
-        "makemo:features": "wp i18n make-mo mu-plugins/build-processes-demo-features/languages",
-
         "packages-install": "@composer install --ignore-platform-reqs --no-interaction",
         "packages-update": [
             "@composer clear-cache",
