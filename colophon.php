@@ -14,18 +14,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	/**
 	 * A colophon-generating method for WordPress Special Projects Sites.
 	 *
-	 *     team51_credits( 'separator= | ' );
+	 * Usage: team51_credits( 'separator= | ' );
 	 *
-	 * @param array $args {
-	 *     Optional. An array of arguments.
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
 	 *
-	 *     @type string $separator The separator to inject between links.
-	 *                             Default ' '
-	 *     @type string $wpcom     The link text to use for WordPress.com.
-	 *                             Default 'Proudly powered by WordPress.'
-	 *     @type string $pressable The link text to use for Pressable.
-	 *                             Default 'Hosted by Pressable.'
-	 * }
+	 * @return void
 	 */
 	function team51_credits( $args = array() ) {
 		$args = wp_parse_args(
@@ -96,7 +89,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 
 		echo implode(
 			esc_html( $args['separator'] ),
-			$credit_links
+			$credit_links //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 		);
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
@@ -108,6 +101,10 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	 * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
 	 *
 	 * Can also be used in the Shortcode block.
+	 *
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $atts The Args passed to the function.
+	 *
+	 * @return string
 	 */
 	function team51_credits_shortcode( $atts ) {
 		$pairs = array(
