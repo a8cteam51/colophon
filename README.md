@@ -4,6 +4,9 @@ Colophon
 Having set up footer links in many partner sites, this aims to
 simplify the deployment of each, by using a more consistent api.
 
+| :exclamation_gray:  The [Team 51 Project Scaffold](https://github.com/a8cteam51/team51-project-scaffold) should be updated when this plugin is updated. |
+|-----------------------------------------------------------------------------------------------------|
+
 Usage
 =====
 
