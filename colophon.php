@@ -91,18 +91,9 @@ if ( ! function_exists( 'team51_credits' ) ) :
 
 		$links = implode( esc_html( $args['separator'] ), $credit_links );
 
-		// If we have an args['wrapper'] set, wrap the output in that.
-		if ( array_key_exists( 'wrapper', $args ) ) {
-			// If there is no class defined, use an empty span.
-			$wrapped_template = '' !== $args['wrapper']
-				? '<span class="%1$s">%2$s</span>'
-				: '<span>%2$s</span>';
-
-			$string = sprintf( $wrapped_template, esc_attr( $args['wrapper'] ), $links );
-		} else {
-			// Otherwise, just return the links.
-			$string = $links;
-		}
+		$string = array_key_exists( 'wrapper', $args )
+			? sprintf( '<span class="%1$s">%2$s</span>', esc_attr( $args['wrapper'] ), $links )
+			: $links;
 
 		/**
 		 * Filters the output string.
@@ -131,7 +122,7 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	 *
 	 * @return string
 	 */
-	function team51_credits_shortcode( array $attributes = array() ): string {
+	function team51_credits_shortcode( $attributes = array() ): string {
 		$pairs = array(
 			'separator' => ' ',
 			/* translators: %s: WordPress. */
@@ -142,13 +133,18 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 
 		// Add the wrapper if set.
 		if ( is_array( $attributes ) && array_key_exists( 'wrapper', $attributes ) ) {
-			$pairs['wrapper'] = '' !== $attributes['wrapper'] ? esc_attr( $attributes['wrapper'] ) : 'colophon__wrapper';
+			// SET the wrapper to the default if it is empty.
+			$pairs['wrapper'] = '' !== $attributes['wrapper']
+				? esc_attr( $attributes['wrapper'] )
+				: 'colophon__wrapper';
+			// UNSET the wrapper so it doesn't get passed to the team51_credits() function.
+			unset( $attributes['wrapper'] );
 		}
 
 		$attributes = shortcode_atts( $pairs, $attributes, 'team51-credits' );
 		ob_start();
 		team51_credits( $attributes );
-		return ob_get_clean() ?: ''; // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+		return ob_get_clean();
 	}
 	add_action(
 		'init',
