@@ -128,3 +128,21 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		}
 	);
 endif;
+
+if ( ! function_exists( 'team51_credits_block' ) ) :
+	/**
+	 * Initializes the block.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	function team51_credits_block() {
+		// Include the block class.
+		require_once __DIR__ . '/Blocks.php';
+
+		$blocks = new Team51\Colophon\Blocks();
+		$blocks->initialize();
+	}
+	add_action( 'plugin_loaded', 'team51_credits_block' );
+endif;
