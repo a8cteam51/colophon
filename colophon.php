@@ -50,7 +50,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['wpcom'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $wpcom_link ),
 				esc_html( $args['wpcom'] )
 			);
@@ -70,7 +70,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['pressable'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $pressable_link ),
 				esc_html( $args['pressable'] )
 			);
@@ -114,14 +114,16 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 			/* translators: %s: Pressable. */
 			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 		);
-		$atts  = shortcode_atts( $pairs, $atts, 'team51-credits' );
+
+		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+
 		ob_start();
 		team51_credits( $atts );
 		return ob_get_clean();
 	}
 	add_action(
 		'init',
-		function() {
+		function () {
 			add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 		}
 	);
