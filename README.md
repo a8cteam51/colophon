@@ -24,6 +24,7 @@ Parameters can be passed in --
 * `pressable` -- The text displayed for the backlink to Pressable  
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
+* `wrapper` -- Wraps the links in a `<span>` with the given class. Passing a blank string `[team51_credits wrapper=""]` will see `colophon__wrapper` used.
 
 Customization
 =============
@@ -45,6 +46,40 @@ function PREFIX_team51_credit_links( $credit_links ) {
   return $credit_links;
 }
 add_filter( 'team51_credit_links', 'PREFIX_team51_credit_links' );
+```
+
+An additional filter has been added which is used to modify the final output of the colophon.  This can be used to add additional markup around the colophon, or to modify the output of the colophon itself.  It can be done like so:
+
+```php
+/**
+ * Wraps the colophon in a div with a class of `colophon`.
+ * 
+ * @param $output (string) The output of the colophon.
+ * @param $links (string) The unwrapped links string.
+ * @param $args (array) The arguments passed to the colophon.
+ * @return (string) The output of the colophon, wrapped in a div.
+ */
+function PREFIX_team51_wrap_colophon( $output, $links, $args ) {
+  return '<div class="colophon">' . $output . '</div>';
+}
+add_filter( 'team51_credits_render', 'PREFIX_team51_wrap_colophon', 10, 3 );
+```
+
+You can also choose to wrap the links in any tags desired:
+
+```php
+/**
+ * Wraps the colophon in a div with a class of `colophon`.
+ * 
+ * @param $output (string) The output of the colophon.
+ * @param $links (string) The unwrapped links string.
+ * @param $args (array) The arguments passed to the colophon.
+ * @return (string) The output of the colophon, wrapped in a div.
+ */
+function PREFIX_team51_colophon_as_paragraph( $output, $links, $args ) {
+  return '<div class="some-class"><p id="colophon-wrapper">' . $links . '</p></div>';
+}
+add_filter( 'team51_credits_render', 'PREFIX_team51_colophon_as_paragraph', 10, 3 );
 ```
 
 FSE Themes
@@ -92,6 +127,13 @@ Change WordPress link text to be “Proudly designed with WordPress”:
 <!-- /wp:shortcode -->
 ```
 
+With a wrapper (span with class of `colophon__wrapper`):
+
+```html
+<!-- wp:shortcode -->
+[team51-credits wrapper="colophon__wrapper" /]
+<!-- /wp:shortcode -->
+```
 
 
 Installation

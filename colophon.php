@@ -20,7 +20,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * @return void
 	 */
-	function team51_credits( $args = array() ) {
+	function team51_credits( $args = array() ): void {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -84,13 +84,29 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 *
 		 * @param array $credit_links The associative array of credit links.
 		 * @param array $args         The parsed arguments used by `team51_credits()`.
+		 *
+		 * @return array The filtered associative array of credit links.
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-		echo implode(
-			esc_html( $args['separator'] ),
-			$credit_links //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
-		);
+		$links = implode( esc_html( $args['separator'] ), $credit_links );
+
+		$string = array_key_exists( 'wrapper', $args )
+			? sprintf( '<span class="%1$s">%2$s</span>', esc_attr( $args['wrapper'] ), $links )
+			: $links;
+
+		/**
+		 * Filters the output string.
+		 *
+		 * @param string                $string The output string.
+		 * @param string                $links  The unwrapped links string.
+		 * @param array<string, mixed>  $args   The parsed arguments used by `team51_credits()`.
+		 *
+		 * @return string The filtered output string.
+		 */
+		$string = apply_filters( 'team51_credits_render', $string, $links, $args );
+
+		echo $string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as its filtered.
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
 endif;
@@ -102,11 +118,11 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	 *
 	 * Can also be used in the Shortcode block.
 	 *
-	 * @param array{separator?: string, wpcom?: string, pressable?: string} $atts The Args passed to the function.
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $attributes The Args passed to the function.
 	 *
 	 * @return string
 	 */
-	function team51_credits_shortcode( $atts ) {
+	function team51_credits_shortcode( $attributes = array() ): string {
 		$pairs = array(
 			'separator' => ' ',
 			/* translators: %s: WordPress. */
@@ -115,10 +131,19 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 		);
 
-		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+		// Add the wrapper if set.
+		if ( is_array( $attributes ) && array_key_exists( 'wrapper', $attributes ) ) {
+			// SET the wrapper to the default if it is empty.
+			$pairs['wrapper'] = '' !== $attributes['wrapper']
+				? esc_attr( $attributes['wrapper'] )
+				: 'colophon__wrapper';
+			// UNSET the wrapper so it doesn't get passed to the team51_credits() function.
+			unset( $attributes['wrapper'] );
+		}
 
+		$attributes = shortcode_atts( $pairs, $attributes, 'team51-credits' );
 		ob_start();
-		team51_credits( $atts );
+		team51_credits( $attributes );
 		return ob_get_clean();
 	}
 	add_action(
