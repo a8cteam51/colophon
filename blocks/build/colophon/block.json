@@ -13,5 +13,27 @@
   "textdomain": "wpcomsp-scaffold",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css"
+  "style": "file:./style-index.css",
+  "attributes": {
+    "separator": {
+      "type": "string",
+      "default": " | "
+    },
+    "pressableLink": {
+      "type": "string",
+      "default": "__"
+    },
+    "wpComLink": {
+      "type": "string",
+      "default": "__"
+    },
+    "hasWrapper": {
+      "type": "boolean",
+      "default": false
+    },
+    "wrapperClassName": {
+      "type": "string",
+      "default": ""
+    }
+  }
 }
