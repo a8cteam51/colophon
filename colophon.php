@@ -14,21 +14,13 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	/**
 	 * A colophon-generating method for WordPress Special Projects Sites.
 	 *
-	 *     team51_credits( 'separator= | ' );
+	 * Usage: team51_credits( 'separator= | ' );
 	 *
-	 * @param array $args {
-	 *     Optional. An array of arguments.
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
 	 *
-	 *     @type string $separator The separator to inject between links.
-	 *                             Default ' '
-	 *     @type string $wpcom     The link text to use for WordPress.com.
-	 *                             Default 'Proudly powered by WordPress.'
-	 *     @type string $pressable The link text to use for Pressable.
-	 *                             Default 'Hosted by Pressable.'
-	 *     @type string $wrapper   The wrapper class to use for the output.
-	 * }
+	 * @return void
 	 */
-	function team51_credits( $args = array() ) {
+	function team51_credits( $args = array() ): void {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -58,7 +50,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['wpcom'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $wpcom_link ),
 				esc_html( $args['wpcom'] )
 			);
@@ -78,7 +70,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['pressable'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $pressable_link ),
 				esc_html( $args['pressable'] )
 			);
@@ -92,6 +84,8 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 *
 		 * @param array $credit_links The associative array of credit links.
 		 * @param array $args         The parsed arguments used by `team51_credits()`.
+		 *
+		 * @return array The filtered associative array of credit links.
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
@@ -113,17 +107,17 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		/**
 		 * Filters the output string.
 		 *
-		 * @param string $string The output string.
-		 * @param string $links  The unwrapped links string.
-		 * @param array  $args   The parsed arguments used by `team51_credits()`.
+		 * @param string                $string The output string.
+		 * @param string                $links  The unwrapped links string.
+		 * @param array<string, mixed>  $args   The parsed arguments used by `team51_credits()`.
+		 *
 		 * @return string The filtered output string.
 		 */
 		$string = apply_filters( 'team51_credits_render', $string, $links, $args );
 
-		echo $string;
+		echo $string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as its filtered.
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
-
 endif;
 
 if ( ! function_exists( 'team51_credits_shortcode' ) ) :
@@ -132,8 +126,12 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	 * The Shortcode for `[team51-credits /]` or `[team51-credits separator=" | " /]` or the like.
 	 *
 	 * Can also be used in the Shortcode block.
+	 *
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $attributes The Args passed to the function.
+	 *
+	 * @return string
 	 */
-	function team51_credits_shortcode( $atts ) {
+	function team51_credits_shortcode( array $attributes = array() ): string {
 		$pairs = array(
 			'separator' => ' ',
 			/* translators: %s: WordPress. */
@@ -143,20 +141,19 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		);
 
 		// Add the wrapper if set.
-		if ( is_array( $atts ) && array_key_exists( 'wrapper', $atts ) ) {
-			$pairs['wrapper'] = '' !== $atts['wrapper'] ? esc_attr( $atts['wrapper'] ) : 'colophon__wrapper';
+		if ( is_array( $attributes ) && array_key_exists( 'wrapper', $attributes ) ) {
+			$pairs['wrapper'] = '' !== $attributes['wrapper'] ? esc_attr( $attributes['wrapper'] ) : 'colophon__wrapper';
 		}
 
-		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+		$attributes = shortcode_atts( $pairs, $attributes, 'team51-credits' );
 		ob_start();
-		team51_credits( $atts );
-		return ob_get_clean();
+		team51_credits( $attributes );
+		return ob_get_clean() ?: ''; // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
 	}
 	add_action(
 		'init',
-		function() {
+		function () {
 			add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 		}
 	);
-
 endif;
