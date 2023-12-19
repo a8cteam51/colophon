@@ -114,14 +114,16 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 			/* translators: %s: Pressable. */
 			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 		);
-		$atts  = shortcode_atts( $pairs, $atts, 'team51-credits' );
+
+		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+
 		ob_start();
 		team51_credits( $atts );
 		return ob_get_clean();
 	}
 	add_action(
 		'init',
-		function() {
+		function () {
 			add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
 		}
 	);
