@@ -50,7 +50,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['wpcom'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $wpcom_link ),
 				esc_html( $args['wpcom'] )
 			);
@@ -70,7 +70,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				)
 			);
 			$credit_links['pressable'] = sprintf(
-				'<a href="%1$s" class="imprint" target="_blank">%2$s</a>',
+				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $pressable_link ),
 				esc_html( $args['pressable'] )
 			);
