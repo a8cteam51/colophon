@@ -1,16 +1,16 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
-    "name": "wpcomsp-scaffold/foobar",
-    "version": "0.1.0",
-    "title": "FooBar Block",
+    "name": "team51/colophon",
+    "version": "1.1.0",
+    "title": "Colophon",
     "category": "widgets",
-    "icon": "smiley",
-    "description": "Example block scaffolded with Create Block tool.",
+    "icon": "admin-links",
+    "description": "Having set up footer links in many partner sites, this aims to simplify the deployment of each, by using a more consistent api.",
     "supports": {
         "html": false
     },
-    "textdomain": "wpcomsp-scaffold",
+    "textdomain": "team51",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css",
@@ -33,7 +33,7 @@
         },
         "wrapperClassName": {
             "type": "string",
-            "default": ""
+            "default": "colophon__wrapper"
         }
     }
 }
