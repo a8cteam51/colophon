@@ -90,7 +90,7 @@ export default function Edit({ attributes, setAttributes }) {
 								help={__('Please enter the CSS class to be used for the <span> tag.', 'team51')}
 							/>
 						</PanelRow>
-					} // end if hasWrapper
+					}
 				</PanelBody>
 			</InspectorControls>
 			<p {...useBlockProps()}>

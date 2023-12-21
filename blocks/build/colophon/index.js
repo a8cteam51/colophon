@@ -107,7 +107,7 @@ function Edit({
       wrapperClassName: value
     }),
     help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please enter the CSS class to be used for the <span> tag.', 'team51')
-  })), " // end if hasWrapper")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5___default()), {
     block: 'team51/colophon',
