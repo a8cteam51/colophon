@@ -3,7 +3,7 @@
 Plugin Name: Colophon
 Plugin URI: https://github.com/a8cteam51/colophon
 Description: Sets Team 51 footer links to WordPress.com and Pressable.
-Version: 1.1.0
+Version: 1.2.0
 Author: WordPress.com Special Projects
 Author URI: https://wpspecialprojects.wordpress.com/
 License: GPLv3
@@ -125,6 +125,28 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		'init',
 		function () {
 			add_shortcode( 'team51-credits', 'team51_credits_shortcode' );
+		}
+	);
+endif;
+
+if ( ! function_exists( 'team51_copyright_shortcode' ) ) :
+
+	/**
+	 * The Shortcode for `[team51-copyright-year]`.
+	 *
+	 * Can also be used in the Shortcode block.
+	 *
+	 * @return string
+	 */
+	function team51_copyright_shortcode() {
+		$current_year = gmdate( 'Y' );
+		$output       = "&copy; $current_year";
+		return esc_html( $output );
+	}
+	add_action(
+		'init',
+		function () {
+			add_shortcode( 'team51-copyright-year', 'team51_copyright_shortcode' );
 		}
 	);
 endif;

@@ -92,6 +92,14 @@ Change WordPress link text to be “Proudly designed with WordPress”:
 <!-- /wp:shortcode -->
 ```
 
+Add a copyright year in the format “© 2024”:
+
+```html
+<!-- wp:shortcode -->
+[team51-copyright-year]
+<!-- /wp:shortcode -->
+```
+
 
 
 Installation
@@ -122,3 +130,8 @@ git submodule add https://github.com/a8cteam51/colophon mu-plugins/colophon
 ```
 
 Then we create a pull request as needed and integrate it as above.
+
+
+### Updates
+
+* v1.2.0 Add a new shortcode for showing the copyright year.
