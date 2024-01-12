@@ -146,7 +146,7 @@ if ( ! function_exists( 'team51_current_year_shortcode' ) ) :
 				'format' => 'Y',
 			),
 			$atts,
-			'current_year'
+			'team51-current-year'
 		);
 
 		$current_year = gmdate( $atts['format'] );
