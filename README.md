@@ -24,6 +24,8 @@ Parameters can be passed in --
 * `pressable` -- The text displayed for the backlink to Pressable  
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
+* `format` -- The date format to use with the `[team51-current-year]` shortcode.
+  Defaults to `Y`.
 
 Customization
 =============
@@ -72,6 +74,15 @@ or
 or the like.  It will also accept `wpcom` and `pressable` parameters
 as well to specify their respective link texts.
 
+For inserting the current year, use this:
+
+```html
+<!-- wp:shortcode -->
+[team51-current-year]
+<!-- /wp:shortcode -->
+```
+
+... will output "2024", or whatever the current year is.
 
 
 ### Examples
@@ -92,11 +103,11 @@ Change WordPress link text to be “Proudly designed with WordPress”:
 <!-- /wp:shortcode -->
 ```
 
-Add a copyright year in the format “© 2024”:
+Add the current year in the format “24”:
 
 ```html
 <!-- wp:shortcode -->
-[team51-copyright-year]
+[team51-current-year format="y"]
 <!-- /wp:shortcode -->
 ```
 

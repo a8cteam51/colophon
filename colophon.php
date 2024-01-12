@@ -129,24 +129,33 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	);
 endif;
 
-if ( ! function_exists( 'team51_copyright_shortcode' ) ) :
+if ( ! function_exists( 'team51_current_year_shortcode' ) ) :
 
 	/**
-	 * The Shortcode for `[team51-copyright-year]`.
+	 * The Shortcode for `[team51-current-year]`.
 	 *
 	 * Can also be used in the Shortcode block.
 	 *
+	 * @param array{format?: string} $atts The Args passed to the function.
+	 *
 	 * @return string
 	 */
-	function team51_copyright_shortcode() {
-		$current_year = gmdate( 'Y' );
-		$output       = "&copy; $current_year";
-		return esc_html( $output );
+	function team51_current_year_shortcode( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'format' => 'Y',
+			),
+			$atts,
+			'current_year'
+		);
+
+		$current_year = gmdate( $atts['format'] );
+		return esc_html( $current_year );
 	}
 	add_action(
 		'init',
 		function () {
-			add_shortcode( 'team51-copyright-year', 'team51_copyright_shortcode' );
+			add_shortcode( 'team51-current-year', 'team51_current_year_shortcode' );
 		}
 	);
 endif;
