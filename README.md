@@ -24,6 +24,8 @@ Parameters can be passed in --
 * `pressable` -- The text displayed for the backlink to Pressable  
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
+* `format` -- The date format to use with the `[team51-current-year]` shortcode.
+  Defaults to `Y`.
 
 Customization
 =============
@@ -72,6 +74,45 @@ or
 or the like.  It will also accept `wpcom` and `pressable` parameters
 as well to specify their respective link texts.
 
+For inserting the current year, use this:
+
+```html
+<!-- wp:shortcode -->
+[team51-current-year]
+<!-- /wp:shortcode -->
+```
+
+... will output "2024", or whatever the current year is.
+
+
+### Examples
+
+To remove Pressable link for WordPress.com sites, you can use
+
+```html
+<!-- wp:shortcode -->
+[team51-credits pressable="" /]
+<!-- /wp:shortcode -->
+```
+
+Change WordPress link text to be “Proudly designed with WordPress”:
+
+```html
+<!-- wp:shortcode -->
+[team51-credits wpcom="Proudly designed with WordPress" /]
+<!-- /wp:shortcode -->
+```
+
+Add the current year in the format “24”:
+
+```html
+<!-- wp:shortcode -->
+[team51-current-year format="y"]
+<!-- /wp:shortcode -->
+```
+
+
+
 Installation
 ============
 
@@ -100,3 +141,8 @@ git submodule add https://github.com/a8cteam51/colophon mu-plugins/colophon
 ```
 
 Then we create a pull request as needed and integrate it as above.
+
+
+### Updates
+
+* v1.2.0 Add a new shortcode for showing the copyright year.

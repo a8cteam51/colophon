@@ -1,0 +1,75 @@
+{
+    "name": "a8cteam51/colophon",
+    "type": "wordpress-project",
+
+    "description": "Having set up footer links in many partner sites, this aims to simplify the deployment of each, by using a more consistent api.",
+    "homepage": "https://github.com/a8cteam51/colophon",
+    "license": "GPL-2.0-or-later",
+    "authors": [{
+        "name": "Contributors",
+        "homepage": "https://github.com/a8cteam51/colophon/graphs/contributors"
+    }],
+
+    "repositories": [{
+            "type": "vcs",
+            "url": "https://github.com/a8cteam51/team51-configs"
+        },
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "a8cteam51/team51-configs": "dev-trunk",
+        "wp-cli/i18n-command": "^2.4",
+        "squizlabs/php_codesniffer": "3.*",
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
+        "phpcompatibility/phpcompatibility-wp": "*",
+        "wp-coding-standards/wpcs": "dev-develop",
+        "roave/security-advisories": "dev-latest"
+    },
+
+    "scripts": {
+        "format:php": [
+            "@format:php:features"
+        ],
+        "format:php:features": "phpcbf --standard=.phpcs.xml . -v",
+
+        "lint:php": [
+
+            "@lint:php:features"
+        ],
+        "lint:php:features": "phpcs --standard=.phpcs.xml . -v",
+
+        "packages-install": "@composer install --ignore-platform-reqs --no-interaction",
+        "packages-update": [
+            "@composer clear-cache",
+            "@composer update --prefer-stable --no-interaction"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/*": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+
+    "extra": {
+        "installer-paths": {
+            "plugins/{$name}/": [
+                "type:wordpress-plugin"
+            ],
+            "themes/{$name}/": [
+                "type:wordpress-theme"
+            ]
+        }
+    }
+}
