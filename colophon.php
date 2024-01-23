@@ -34,7 +34,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 
 		$credit_links   = array();
 		$parsed_url     = wp_parse_url( get_site_url(), PHP_URL_HOST );
-		$partner_domain = $parsed_url ?: 'wpspecialprojects.wordpress.com';
+		$partner_domain = $parsed_url ? $parsed_url : 'wpspecialprojects.wordpress.com';
 
 		if ( $args['wpcom'] ) {
 			$wpcom_link            = apply_filters(
