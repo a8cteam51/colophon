@@ -65,7 +65,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_source'   => 'Automattic',
 						'utm_medium'   => 'rpc',
 						'utm_campaign' => 'Concierge Referral',
-						'utm_term'     => 'concierge',
+						'utm_term'     => $partner_domain,
 					),
 					'https://pressable.com/'
 				)
