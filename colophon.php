@@ -32,10 +32,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 			)
 		);
 
-		$credit_links = array();
+		$credit_links   = array();
+		$parsed_url     = wp_parse_url( get_site_url(), PHP_URL_HOST );
+		$partner_domain = $parsed_url ? $parsed_url : 'wpspecialprojects.com';
 
 		if ( $args['wpcom'] ) {
-			$partner_domain        = wp_parse_url( get_site_url(), PHP_URL_HOST );
 			$wpcom_link            = apply_filters(
 				'team51_credits_link_wpcom',
 				add_query_arg(
@@ -64,7 +65,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_source'   => 'Automattic',
 						'utm_medium'   => 'rpc',
 						'utm_campaign' => 'Concierge Referral',
-						'utm_term'     => 'concierge',
+						'utm_term'     => $partner_domain,
 					),
 					'https://pressable.com/'
 				)
