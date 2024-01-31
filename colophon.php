@@ -39,11 +39,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		$args = wp_parse_args(
 			$args,
 			array(
-				'separator'     => ' ',
+				'separator' => ' ',
 				/* translators: %s: WordPress. */
-				'wpcom'         => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+				'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 				/* translators: %s: Pressable. */
-				'pressable'     => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+				'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 			)
 		);
 

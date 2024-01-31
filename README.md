@@ -25,9 +25,6 @@ Parameters can be passed in --
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
 * `format` -- The date format to use with the `[team51-current-year]` shortcode.
-* `return_output` -- Defines if the output should be echoed or returned.
-  Defaults to `false` to keep standard echo behavior.
-  Only makes a difference in do_action and not in the shortcode
 
 Customization
 =============
