@@ -14,6 +14,12 @@ for more graceful degradation to implement via actions.
 <?php do_action( 'team51_credits', array() ); ?>
 ```
 
+If we need just the final credits link returned as string we can also use
+
+```php
+<?php apply_filters( 'team51_credits_filter', '', array() ); ?>
+```
+
 Parameters can be passed in --
 
 * `separator` -- defaults to a single space.  
