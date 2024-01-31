@@ -11,6 +11,21 @@ License: GPLv3
 
 if ( ! function_exists( 'team51_credits' ) ) :
 
+
+	/**
+	 * A wrapper to the colophon generating method for WordPress Special Projects Sites.
+	 * Echoes a the resulting credit links
+	 *
+	 * Usage: team51_credits( 'separator= | ' );
+	 *
+	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
+	 *
+	 * @return void
+	 */
+	function team51_credits( $args = array() ) {
+		echo apply_filters( 'team51_credits_filter', '', $args ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
 	/**
 	 * A colophon-generating method for WordPress Special Projects Sites.
 	 *
@@ -18,9 +33,9 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
 	 *
-	 * @return void|string
+	 * @return string the resulting credits link
 	 */
-	function team51_credits( $args = array() ) {
+	function team51_credits_filter( $str = '', $args = array() ) {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -29,7 +44,6 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				'wpcom'         => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 				/* translators: %s: Pressable. */
 				'pressable'     => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
-				'return_output' => false,
 			)
 		);
 
@@ -89,18 +103,14 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-		$output = implode(
+		return implode(
 			esc_html( $args['separator'] ),
 			$credit_links //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 		);
-
-		if ( $args['return_output'] ) {
-			return $output;
-		}
-
-		echo $output; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 	}
+
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
+	add_filter( 'team51_credits_filter', 'team51_credits_filter', 10, 2 );
 endif;
 
 if ( ! function_exists( 'team51_credits_shortcode' ) ) :
