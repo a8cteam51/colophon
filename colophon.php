@@ -3,7 +3,7 @@
 Plugin Name: Colophon
 Plugin URI: https://github.com/a8cteam51/colophon
 Description: Sets Team 51 footer links to WordPress.com and Pressable.
-Version: 1.2.0
+Version: 1.3.0
 Author: WordPress.com Special Projects
 Author URI: https://wpspecialprojects.wordpress.com/
 License: GPLv3

@@ -152,3 +152,4 @@ Then we create a pull request as needed and integrate it as above.
 ### Updates
 
 * v1.2.0 Add a new shortcode for showing the copyright year.
+* v1.3.0 Adds a new filter that returns the credits link string instead of echoing it.
