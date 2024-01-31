@@ -25,7 +25,7 @@ Parameters can be passed in --
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
 * `format` -- The date format to use with the `[team51-current-year]` shortcode.
-  Defaults to `Y`. 
+  Defaults to `Y`.
 
 Customization
 =============
