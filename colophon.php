@@ -18,17 +18,18 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
 	 *
-	 * @return void
+	 * @return void|string
 	 */
 	function team51_credits( $args = array() ) {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'separator' => ' ',
+				'separator'     => ' ',
 				/* translators: %s: WordPress. */
-				'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+				'wpcom'         => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 				/* translators: %s: Pressable. */
-				'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+				'pressable'     => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+				'return_output' => false,
 			)
 		);
 
@@ -88,10 +89,16 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-		echo implode(
+		$output = implode(
 			esc_html( $args['separator'] ),
 			$credit_links //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 		);
+
+		if ( $args['return_output'] ) {
+			return $output;
+		}
+
+		echo $output; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
 endif;
