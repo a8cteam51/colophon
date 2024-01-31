@@ -31,6 +31,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * Usage: team51_credits( 'separator= | ' );
 	 *
+	 * @param string $str The string that will be used for the filter. Will be overriden
 	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
 	 *
 	 * @return string the resulting credits link
