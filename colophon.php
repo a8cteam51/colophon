@@ -16,7 +16,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * Usage: team51_credits( 'separator= | ' );
 	 *
-	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
+	 * @param array{separator?: string, wpcom?: string, pressable?: string, return?: boolean} $args The Args passed to the function.
 	 *
 	 * @return void
 	 */
@@ -32,6 +32,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				'return'    => false,
 			)
 		);
+
+		// Protect against folks mistakenly passing 'return' in which would prevent anything from echoing on the action.
+		if ( doing_action( 'team51_credits' ) ) {
+			$args['return'] = false;
+		}
 
 		$credit_links   = array();
 		$parsed_url     = wp_parse_url( get_site_url(), PHP_URL_HOST );
