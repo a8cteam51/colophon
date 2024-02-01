@@ -16,7 +16,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * Usage: team51_credits( 'separator= | ' );
 	 *
-	 * @param array{separator?: string, wpcom?: string, pressable?: string} $args The Args passed to the function.
+	 * @param array{separator?: string, wpcom?: string, pressable?: string, return?: boolean} $args The Args passed to the function.
 	 *
 	 * @return void
 	 */
@@ -29,8 +29,14 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 				/* translators: %s: Pressable. */
 				'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+				'return'    => false,
 			)
 		);
+
+		// Protect against folks mistakenly passing 'return' in which would prevent anything from echoing on the action.
+		if ( doing_action( 'team51_credits' ) ) {
+			$args['return'] = false;
+		}
 
 		$credit_links   = array();
 		$parsed_url     = wp_parse_url( get_site_url(), PHP_URL_HOST );
@@ -88,10 +94,18 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		 */
 		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
-		echo implode(
+		$output = implode(
 			esc_html( $args['separator'] ),
 			$credit_links //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, this cant be escaped as it runs through a filter
 		);
+
+		// If we'd rather it be returned, rather than echoed ...
+		if ( $args['return'] ) {
+			return $output;
+		}
+
+		// Otherwise...
+		echo $output;
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
 endif;
@@ -117,10 +131,9 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		);
 
 		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+		$atts['return'] = true;
 
-		ob_start();
-		team51_credits( $atts );
-		return ob_get_clean();
+		return team51_credits( $atts );
 	}
 	add_action(
 		'init',
