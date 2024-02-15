@@ -44,7 +44,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'partner_domain' => $partner_domain,
 						'utm_source'     => 'Automattic',
 						'utm_medium'     => 'colophon',
-						'utm_campaign'   => 'Concierge Referral',
+						'utm_campaign'   => 'concierge_referral',
 						'utm_term'       => $partner_domain,
 					),
 					'https://wordpress.com/wp/'
@@ -64,7 +64,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 					array(
 						'utm_source'   => 'Automattic',
 						'utm_medium'   => 'rpc',
-						'utm_campaign' => 'Concierge Referral',
+						'utm_campaign' => 'concierge_referral',
 						'utm_term'     => $partner_domain,
 					),
 					'https://pressable.com/'
