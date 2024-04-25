@@ -3,7 +3,7 @@
 Plugin Name: Colophon
 Plugin URI: https://github.com/a8cteam51/colophon
 Description: Sets Team 51 footer links to WordPress.com and Pressable.
-Version: 1.0.0
+Version: 1.2.0
 Author: WordPress.com Special Projects
 Author URI: https://wpspecialprojects.wordpress.com/
 License: GPLv3
@@ -21,6 +21,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 * @return void
 	 */
 	function team51_credits( $args = array() ) {
+		// adump( $args );
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -32,10 +33,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 			)
 		);
 
-		$credit_links = array();
+		$credit_links   = array();
+		$parsed_url     = wp_parse_url( get_site_url(), PHP_URL_HOST );
+		$partner_domain = $parsed_url ? $parsed_url : 'wpspecialprojects.com';
 
 		if ( $args['wpcom'] ) {
-			$partner_domain        = wp_parse_url( get_site_url(), PHP_URL_HOST );
 			$wpcom_link            = apply_filters(
 				'team51_credits_link_wpcom',
 				add_query_arg(
@@ -64,7 +66,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_source'   => 'Automattic',
 						'utm_medium'   => 'rpc',
 						'utm_campaign' => 'Concierge Referral',
-						'utm_term'     => 'concierge',
+						'utm_term'     => $partner_domain,
 					),
 					'https://pressable.com/'
 				)
@@ -73,6 +75,23 @@ if ( ! function_exists( 'team51_credits' ) ) :
 				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
 				esc_url( $pressable_link ),
 				esc_html( $args['pressable'] )
+			);
+		}
+
+		// If we are wrapping in a <span>
+		if ( isset( $args['has_wrapper'] ) && true === $args['has_wrapper'] ) {
+			$wrapper_template = '<span>%s</span>';
+			// If we have a wrapper class, use it.
+			if ( isset( $args['wrapper'] ) ) {
+				$wrapper_class    = esc_attr( $args['wrapper'] );
+				$wrapper_template = "<span class='{$wrapper_class}'>%s</span>";
+			}
+
+			$credit_links = array_map(
+				function ( $link ) use ( $wrapper_template ) {
+					return sprintf( $wrapper_template, $link );
+				},
+				$credit_links
 			);
 		}
 
@@ -107,12 +126,14 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 	 * @return string
 	 */
 	function team51_credits_shortcode( $atts ) {
+
 		$pairs = array(
-			'separator' => ' ',
+			'separator'   => ' ',
 			/* translators: %s: WordPress. */
-			'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+			'wpcom'       => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
 			/* translators: %s: Pressable. */
-			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+			'pressable'   => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
+			'has_wrapper' => false,
 		);
 
 		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
@@ -145,4 +166,35 @@ if ( ! function_exists( 'team51_credits_block' ) ) :
 		$blocks->initialize();
 	}
 	add_action( 'plugin_loaded', 'team51_credits_block' );
+endif;
+
+if ( ! function_exists( 'team51_current_year_shortcode' ) ) :
+
+	/**
+	 * The Shortcode for `[team51-current-year]`.
+	 *
+	 * Can also be used in the Shortcode block.
+	 *
+	 * @param array{format?: string} $atts The Args passed to the function.
+	 *
+	 * @return string
+	 */
+	function team51_current_year_shortcode( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'format' => 'Y',
+			),
+			$atts,
+			'team51-current-year'
+		);
+
+		$current_year = gmdate( $atts['format'] );
+		return esc_html( $current_year );
+	}
+	add_action(
+		'init',
+		function () {
+			add_shortcode( 'team51-current-year', 'team51_current_year_shortcode' );
+		}
+	);
 endif;

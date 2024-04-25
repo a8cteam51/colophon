@@ -41,13 +41,13 @@
         "format:php": [
             "@format:php:features"
         ],
-        "format:php:features": "phpcbf --standard=phpcs.xml . -v",
+        "format:php:features": "phpcbf --standard=.phpcs.xml . -v",
 
         "lint:php": [
 
             "@lint:php:features"
         ],
-        "lint:php:features": "phpcs --standard=phpcs.xml . -v",
+        "lint:php:features": "phpcs --standard=.phpcs.xml . -v",
 
         "packages-install": "@composer install --ignore-platform-reqs --no-interaction",
         "packages-update": [

@@ -73,22 +73,43 @@ final class Blocks {
 	public function render_colophon_block( array $attributes, string $content, \WP_Block $block ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		// Define the args.
 		$args = array(
-			'separator' => \esc_attr( $attributes['separator'] ),
-			'wpcom'     => \esc_html( $attributes['wpComLink'] ),
-			'pressable' => \esc_html( $attributes['pressableLink'] ),
+			'separator'   => \esc_attr( $attributes['separator'] ),
+			'wpcom'       => \esc_html( $attributes['wpComLink'] ),
+			'pressable'   => \esc_html( $attributes['pressableLink'] ),
+			'has_wrapper' => (bool) $attributes['hasWrapper'],
 		);
+
+		// dump( $attributes );
 
 		if ( true === (bool) $attributes['hasWrapper'] ) {
 			$args['wrapper'] = \esc_attr( $attributes['wrapperClassName'] );
 		}
 
+		// Define the wrapper.
+		$wrapper_template = '<p>%s</p>';
+
+		// If we have a wrapper class, use it.
+		if ( array_key_exists( 'className', $block->attributes ) ) {
+			$wrapper_template = "<p class='{$block->attributes['className']}'>%s</p>";
+		}
+
 		// Return as a Paragraph block.
-		return sprintf(
-			'<p %s>%s</p>',
-			array_key_exists( 'className', $block->attributes )
-				? "class='{$block->attributes['className']}'"
-				: '',
-			team51_credits_shortcode( $args )
+		return \wp_kses(
+			sprintf( $wrapper_template, team51_credits_shortcode( $args ) ),
+			array(
+				'p'    => array(
+					'class' => array(),
+				),
+				'a'    => array(
+					'href'   => array(),
+					'target' => array(),
+					'rel'    => array(),
+					'class'  => array(),
+				),
+				'span' => array(
+					'class' => array(),
+				),
+			)
 		);
 	}
 
