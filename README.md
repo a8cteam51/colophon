@@ -24,7 +24,9 @@ Parameters can be passed in --
 * `pressable` -- The text displayed for the backlink to Pressable  
   Defaults to `Hosted by Pressable.`  
   Link is skipped if not truthy.
-* `format` -- The date format to use with the `[team51-current-year]` shortcode.
+
+	The current year shortcode can be used in the footer as well with the following parameters:
+* `format` -- The date format to use with the `[team51-current-year]` shortcode. `[team51-current-year format="y"]` will output "24" for the current year.
   Defaults to `Y`.
 
 Customization
@@ -32,22 +34,6 @@ Customization
 
 You can filter the output links if desired to modify the classes on them or add new attributes if desired.  It can be done like so:
 
-```php
-/**
- * Append `extra-class-name` to the colophon link classes.
- * 
- * @param $credit_links (array) An array of the backlinks.
- * @return (array) The backlinks, with the classes appended.
- */
-function PREFIX_team51_credit_links( $credit_links ) {
-  foreach ( $credit_links as &$link ) {
-    $link = str_replace( 'class="imprint"', 'class="imprint extra-class-name" ', $link );
-  }
-
-  return $credit_links;
-}
-add_filter( 'team51_credit_links', 'PREFIX_team51_credit_links' );
-```
 
 FSE Themes
 ==========
