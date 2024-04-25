@@ -81,7 +81,15 @@ final class Blocks {
 		if ( true === (bool) $attributes['hasWrapper'] ) {
 			$args['wrapper'] = \esc_attr( $attributes['wrapperClassName'] );
 		}
-		return team51_credits_shortcode( $args );
+
+		// Return as a Paragraph block.
+		return sprintf(
+			'<p %s>%s</p>',
+			array_key_exists( 'className', $block->attributes )
+				? "class='{$block->attributes['className']}'"
+				: '',
+			team51_credits_shortcode( $args )
+		);
 	}
 
 	// endregion
