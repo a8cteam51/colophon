@@ -79,8 +79,6 @@ final class Blocks {
 			'has_wrapper' => (bool) $attributes['hasWrapper'],
 		);
 
-		// dump( $attributes );
-
 		if ( true === (bool) $attributes['hasWrapper'] ) {
 			$args['wrapper'] = \esc_attr( $attributes['wrapperClassName'] );
 		}
@@ -89,7 +87,7 @@ final class Blocks {
 		$wrapper_template = '<p>%s</p>';
 
 		// If we have a wrapper class, use it.
-		if ( array_key_exists( 'className', $block->attributes ) ) {
+		if ( array_key_exists( 'className', $block->attributes ) && '' === $block->attributes['className'] ) {
 			$wrapper_template = "<p class='{$block->attributes['className']}'>%s</p>";
 		}
 

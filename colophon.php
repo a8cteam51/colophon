@@ -21,7 +21,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 * @return void
 	 */
 	function team51_credits( $args = array() ) {
-		// adump( $args );
+
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -49,7 +49,8 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_term'       => $partner_domain,
 					),
 					'https://wordpress.com/wp/'
-				)
+				),
+				$args
 			);
 			$credit_links['wpcom'] = sprintf(
 				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
@@ -69,7 +70,8 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_term'     => $partner_domain,
 					),
 					'https://pressable.com/'
-				)
+				),
+				$args
 			);
 			$credit_links['pressable'] = sprintf(
 				'<a href="%1$s" class="imprint" target="_blank" rel="nofollow">%2$s</a>',
@@ -82,7 +84,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 		if ( isset( $args['has_wrapper'] ) && true === $args['has_wrapper'] ) {
 			$wrapper_template = '<span>%s</span>';
 			// If we have a wrapper class, use it.
-			if ( isset( $args['wrapper'] ) ) {
+			if ( isset( $args['wrapper'] ) && '' === $args['wrapper'] ) {
 				$wrapper_class    = esc_attr( $args['wrapper'] );
 				$wrapper_template = "<span class='{$wrapper_class}'>%s</span>";
 			}
@@ -95,16 +97,6 @@ if ( ! function_exists( 'team51_credits' ) ) :
 			);
 		}
 
-		/**
-		 * Filter the output links.
-		 *
-		 * This will enable folks to add additional links, remove links, or
-		 * reroute links to internationalized versions if needed.
-		 *
-		 * @param array $credit_links The associative array of credit links.
-		 * @param array $args         The parsed arguments used by `team51_credits()`.
-		 */
-		$credit_links = apply_filters( 'team51_credit_links', $credit_links, $args );
 
 		echo implode(
 			esc_html( $args['separator'] ),
