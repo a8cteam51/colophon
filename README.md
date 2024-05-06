@@ -125,13 +125,13 @@ First, ensure the following two lines are included in your `.gitignore` so that 
 !mu-plugins/colophon
 ```
 
-If `mu-loader.php` is not already in the `mu-plugins` directory, it can be copied from https://github.com/Automattic/team51-cli/blob/trunk/scaffold/templates/mu-loader.php
+If `mu-loader.php` is not already in the `mu-plugins` directory, it can be copied from https://github.com/a8cteam51/team51-project-scaffold/blob/trunk/mu-plugins/mu-loader.php
 
 This can be done on cli from the repository root via:
 
 ```
 mkdir mu-plugins
-curl https://raw.githubusercontent.com/Automattic/team51-cli/trunk/scaffold/templates/mu-loader.php -o mu-plugins/mu-loader.php
+curl https://github.com/a8cteam51/team51-project-scaffold/blob/trunk/mu-plugins/mu-loader.php -o mu-plugins/mu-loader.php
 ```
 
 From the project repository's root, we add the Colophon as a submodule via
