@@ -49,10 +49,10 @@ function PREFIX_team51_credit_links( $credit_links ) {
 add_filter( 'team51_credit_links', 'PREFIX_team51_credit_links' );
 ```
 
-FSE Themes
+Block Themes
 ==========
 
-If your site using Full Site Editing, then insert a shortcode
+If your site is a block theme, then insert a shortcode
 block into the footer.html and use `[team51-credits /]` as an embed.
 
 Something like this:
