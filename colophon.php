@@ -18,7 +18,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 	 *
 	 * @param array{separator?: string, wpcom?: string, pressable?: string, return?: boolean} $args The Args passed to the function.
 	 *
-	 * @return void
+	 * @return void|string
 	 */
 	function team51_credits( $args = array() ) {
 		$args = wp_parse_args(
@@ -101,11 +101,11 @@ if ( ! function_exists( 'team51_credits' ) ) :
 
 		// If we'd rather it be returned, rather than echoed ...
 		if ( $args['return'] ) {
-			return $output;
+			return wp_kses_post( $output );
 		}
 
 		// Otherwise...
-		echo $output;
+		echo esc_attr( $output );
 	}
 	add_action( 'team51_credits', 'team51_credits', 10, 1 );
 endif;
@@ -131,6 +131,7 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		);
 
 		$atts = shortcode_atts( $pairs, $atts, 'team51-credits' );
+
 		$atts['return'] = true;
 
 		return team51_credits( $atts );
