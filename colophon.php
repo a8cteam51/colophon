@@ -47,7 +47,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 						'utm_campaign'   => 'Concierge Referral',
 						'utm_term'       => $partner_domain,
 					),
-					'https://wordpress.com/wp/'
+					'https://wordpress.com/website-builder/'
 				)
 			);
 			$credit_links['wpcom'] = sprintf(
