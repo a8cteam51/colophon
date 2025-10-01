@@ -116,8 +116,6 @@ Add the current year in the format “24”:
 Installation
 ============
 
-Colophon should be installed as a submodule into `mu-plugins`, rather than committing its files directly.  This will enable updates from the source repository when needed more easily and provide greater consistency while lessening the support burden.
-
 First, ensure the following two lines are included in your `.gitignore` so that the files are explicitly not ignored, and can be committed:
 
 ```
