@@ -14,6 +14,8 @@ for more graceful degradation to implement via actions.
 <?php do_action( 'team51_credits', array() ); ?>
 ```
 
+The default output is "Proudly powered by WordPress. Hosted by Pressable."
+
 Parameters can be passed in --
 
 * `separator` -- defaults to a single space.  
