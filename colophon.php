@@ -26,7 +26,7 @@ if ( ! function_exists( 'team51_credits' ) ) :
 			array(
 				'separator' => ' ',
 				/* translators: %s: WordPress. */
-				'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+				'wpcom'     => sprintf( __( 'Designed with %s.', 'team51' ), 'WordPress' ),
 				/* translators: %s: Pressable. */
 				'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 			)
@@ -111,7 +111,7 @@ if ( ! function_exists( 'team51_credits_shortcode' ) ) :
 		$pairs = array(
 			'separator' => ' ',
 			/* translators: %s: WordPress. */
-			'wpcom'     => sprintf( __( 'Proudly powered by %s.', 'team51' ), 'WordPress' ),
+			'wpcom'     => sprintf( __( 'Designed with %s.', 'team51' ), 'WordPress' ),
 			/* translators: %s: Pressable. */
 			'pressable' => sprintf( __( 'Hosted by %s.', 'team51' ), 'Pressable' ),
 		);

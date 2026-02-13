@@ -14,14 +14,14 @@ for more graceful degradation to implement via actions.
 <?php do_action( 'team51_credits', array() ); ?>
 ```
 
-The default output is "Proudly powered by WordPress. Hosted by Pressable."
+The default output is "Designed with WordPress. Hosted by Pressable."
 
 Parameters can be passed in --
 
 * `separator` -- defaults to a single space.  
   Separator is passed through `esc_html()` on output, so don't include html tags.
 * `wpcom` -- The text displayed for the backlink to WordPress.com  
-  Defaults to `Proudly powered by WordPress.`  
+  Defaults to `Designed with WordPress.`  
   Link is skipped if not truthy.
 * `pressable` -- The text displayed for the backlink to Pressable  
   Defaults to `Hosted by Pressable.`  
