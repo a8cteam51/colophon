@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "team51/colophon",
+  "version": "0.1.0",
+  "title": "Colophon",
+  "category": "theme",
+  "icon": "editor-textcolor",
+  "description": "A block for displaying a colophon.",
+  "supports": {
+    "html": false,
+    "align": true,
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontStyle": true,
+      "__experimentalFontWeight": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalTextTransform": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    }
+  },
+  "textdomain": "team51-blocks",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

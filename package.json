@@ -1,0 +1,32 @@
+{
+  "name": "colophon",
+  "version": "1.0.0",
+  "author": {
+    "name": "WordPress.com Special Projects Team",
+    "url": "https://wpspecialprojects.wordpress.com/"
+  },
+  "description": "Sets Team 51 footer links to WordPress.com and Pressable.",
+  "keywords": [
+    "team51",
+    "colophon"
+  ],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/a8cteam51/colophon",
+  "repository": "https://github.com/a8cteam51/colophon",
+  "bugs": "https://github.com/a8cteam51/colophon/issues",
+  "engines": {
+    "node": ">=20.11",
+    "npm": ">=10.2"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.15.0"
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "scripts": {
+    "build": "wp-scripts build --webpack-src-dir=block --webpack-dist-dir=build",
+    "start": "wp-scripts start --webpack-src-dir=block --webpack-dist-dir=build"
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
+}

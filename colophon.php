@@ -160,3 +160,16 @@ if ( ! function_exists( 'team51_current_year_shortcode' ) ) :
 		}
 	);
 endif;
+
+if ( ! function_exists( 'team51_colophon_register_block' ) ) {
+
+	/**
+	 * Registers the Colophon block.
+	 *
+	 * @return void
+	 */
+	function team51_colophon_register_block() {
+		register_block_type_from_metadata( __DIR__ . DIRECTORY_SEPARATOR . 'build' );
+	}
+	add_action( 'init', 'team51_colophon_register_block' );
+}
